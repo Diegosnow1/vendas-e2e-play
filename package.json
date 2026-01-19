@@ -6,9 +6,12 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": "",
+  "description": "\\# Projeto de Testes E2E com Playwright",
   "devDependencies": {
     "@playwright/test": "^1.57.0",
     "@types/node": "^25.0.8"
+  },
+  "directories": {
+    "test": "tests"
   }
 }
