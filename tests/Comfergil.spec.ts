@@ -1,12 +1,12 @@
 import { test,expect } from '@playwright/test';
 /**
- * FICHA 48200
+ * FICHA 482002
  * CASO DE TESTE 1
  * Problema Detectado:
  * O sistema não está calculando corretamente o valor para gerar a base de cálculo e valor da comissão de indicadores
  * Ambiente 10.10.11.65
  * BANCO DE DADOS:Comfergil_Diego
- * VERSSÃO: 482002_marcio_ComissIndicadorOfertaDesc_Comfergil
+ * VERSSÃO: 5.91.12
  * RESULTADO ESPERADO APÓS CORREÇÃO DO BUG:
  * Base de Cálculo: R$ 106,72
  * Valor da Comissão: R$ 1,07
@@ -62,16 +62,16 @@ test('CASO DE TESTE 1', async ({ page }) => {
 
  
 /**
- * FICHA 48200
+ * FICHA 482002
  * CASO DE TESTE 1
  * Problema Detectado:
  * O sistema não está calculando corretamente o valor para gerar a base de cálculo e valor da comissão de indicadores
  * Ambiente 10.10.11.65
  * BANCO DE DADOS:Comfergil_Diego
  * Versão: 5.91.9
- * RESULTADO ESPERADO APÓS CORREÇÃO DO BUG:
- * Base de Cálculo: R$ 106,72
- * Valor da Comissão: R$ 1,07
+ * RESULTADO ESPERADO  DIFERENTE DO CORRETO:
+ * Base de Cálculo: <> R$ 106,72
+ * Valor da Comissão: <> R$ 1,07
  */
 
  test('CASO DE TESTE 2', async ({ page }) => {

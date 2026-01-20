@@ -75,14 +75,14 @@ async function validarErroTelefone(page) {
  * Versão: 5.84.5
  *
  * RESULTADO ESPERADO:
- * Não será mais possível cadastrar telefone ou celular inválidos no cadastro do cliente.
- * Caso exista telefone inválido, o sistema deve impedir a finalização e exibir mensagem.
+ * Nessa versão sistema ainda permite cadastrar telefone inválido, faltando numeros
+ * C
  */
 /* =========================
    FUNÇÕES AUXILIARES
    ========================= */
 
- async function fazerLogin2(page,usuario) {
+ /* async function fazerLogin2(page,usuario) {
   await page.goto('http://10.10.11.98:9999/Login');
   await page.locator('#Login_Usuario').click();
   await page.locator('#Login_Usuario').fill(usuario);
@@ -127,4 +127,4 @@ async function validarErroTelefone2(page) {
   await validarErroTelefone2(page);
   await page.pause(); // ⬅️ PAUSA NO LUGAR CERTO
 });
-   
+    */
