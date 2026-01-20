@@ -1,4 +1,4 @@
-import { test,expect } from '@playwright/test';
+
 
 /**
  * FICHA 482462
@@ -7,18 +7,22 @@ import { test,expect } from '@playwright/test';
  * OrcaWeb não está validando telefone dos clientes.
  * Ambiente: 10.10.11.65
  * BANCO DE DADOS: Imperio_Diego
- * Versão: Branch 482462_marcio_outrSaida_Imperio
+ * Versão: 5.91.13
  *
  * RESULTADO ESPERADO:
- * Não ocorrerá mais o errro ao digitar a senha após ter seçionado o cliente na venda.
+ * Não ocorrerá mais o erro ao digitar a senha após ter selecionado o cliente na venda.
  * 
+ * RESULTADO OBTIDO:
+ * Erro não ocorreu mais , ao clicar no botão ok após digitar nos campos de senhas.
  */
 /* =========================
    FUNÇÕES AUXILIARES
    ========================= */
 
+  import { selectors,test,expect } from '@playwright/test';
+
 async function fazerLogin(page,usuario,senha) {
-  await page.goto('http://10.10.11.65:9999/Login');
+  await page.goto('http://localhost:9999/Login');
   await page.locator('#Login_Usuario').click();
   await page.locator('#Login_Usuario').fill(usuario);
   await page.locator('#Login_Senha').click();
@@ -77,22 +81,7 @@ async function ValidarMensagemRegistroAtualizadoComSucesso(page) {
 
 /**
  * FICHA 475854
- * CASO DE TESTE 2
- * Problema Detectado:
- * OrcaWeb não está validando telefone dos clientes.
- * Ambiente: 10.10.11.98
- * BANCO DE DADOS: Imperio_Diego
- * Versão: 5.91.12
- *
- * RESULTADO ESPERADO:
- * Irá ocorrer o errro ao digitar a senha após ter seçionado o cliente na venda.
- * 
- */
-/* =========================
-   FUNÇÕES AUXILIARES
-   ========================= */
-
-  async function fazerLogin2(page,usuario,senha) {
+async function fazerLogin2(page,usuario,senha) {
   await page.goto('http://10.10.11.98:9999/Login');
   await page.locator('#Login_Usuario').click();
   await page.locator('#Login_Usuario').fill(usuario);
@@ -146,5 +135,5 @@ async function ValidarMensagemRegistroAtualizadoComSucesso2(page) {
   await pesquisarcliente2(page,'459.280.616-68');
   await ValidarMensagemRegistroAtualizadoComSucesso2(page);
   
-}); 
+}); */
     

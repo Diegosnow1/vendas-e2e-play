@@ -1,24 +1,31 @@
-import { test,expect } from '@playwright/test';
-
 /**
  * FICHA 475854
  * CASO DE TESTE 1
  * Problema Detectado:
  * OrcaWeb não está validando telefone dos clientes.
  * Ambiente: 10.10.11.65
- * BANCO DE DADOS: Comfergil_Diego
+ * BANCO DE DADOS: Fermacom_Diego
  * Versão: Branch 475854_Jeremias_ValidarTelefoneCliente_Clube_da_Casa_Silca
  *
  * RESULTADO ESPERADO:
  * Não será mais possível cadastrar telefone ou celular inválidos no cadastro do cliente.
  * Caso exista telefone inválido, o sistema deve impedir a finalização e exibir mensagem.
+ * 
+ * RESULTADO OBTIDO:
+ * A MENSAGEM DE ERRO FOI APRESENTADA CORRETAMENTE:
+ * ('O campo "Telefone" é inválido.');
+ * ('O campo "Celular" é inválido.');
  */
 /* =========================
    FUNÇÕES AUXILIARES
    ========================= */
 
+  import { selectors,test,expect } from '@playwright/test';
+
+
+
 async function fazerLogin(page,usuario) {
-  await page.goto('http://10.10.11.65:9999/Login');
+  await page.goto('http://localhost:9999/Login');
   await page.locator('#Login_Usuario').click();
   await page.locator('#Login_Usuario').fill(usuario);
   await page.locator('#Login_Senha').click();
@@ -66,21 +73,7 @@ async function validarErroTelefone(page) {
 
 
 /**
- * FICHA 475854
- * CASO DE TESTE 1
- * Problema Detectado:
- * OrcaWeb não está validando telefone dos clientes.
- * Ambiente: 10.10.11.65
- * BANCO DE DADOS: Comfergil_Diego
- * Versão: 5.84.5
- *
- * RESULTADO ESPERADO:
- * Nessa versão sistema ainda permite cadastrar telefone inválido, faltando numeros
- * C
- */
-/* =========================
-   FUNÇÕES AUXILIARES
-   ========================= */
+  * FICHA 476948
 
  /* async function fazerLogin2(page,usuario) {
   await page.goto('http://10.10.11.98:9999/Login');

@@ -1,20 +1,28 @@
-import { test,expect } from '@playwright/test';
 /**
  * FICHA 482002
  * CASO DE TESTE 1
  * Problema Detectado:
- * O sistema não está calculando corretamente o valor para gerar a base de cálculo e valor da comissão de indicadores
- * Ambiente 10.10.11.65
- * BANCO DE DADOS:Comfergil_Diego
- * VERSSÃO: 5.91.12
- * RESULTADO ESPERADO APÓS CORREÇÃO DO BUG:
+ * O sistema não está calculando corretamente o valor para gerar a base de cálculo e valor da comissão de indicadores.
+ * Ambiente: 10.10.11.65
+ * BANCO DE DADOS: Comfergil_Diego
+ * Versão: 5.91.12
+ *
+ * RESULTADO ESPERADO:
+ * Base de Cálculo: R$ 106,72
+ * Valor da Comissão: R$ 1,07
+ * 
+ * RESULTADO OBTIDO:
  * Base de Cálculo: R$ 106,72
  * Valor da Comissão: R$ 1,07
  */
+/* =========================
+   FUNÇÕES AUXILIARES
+   ========================= */
 
+  import { selectors,test,expect } from '@playwright/test';
 
 test('CASO DE TESTE 1', async ({ page }) => {
-  await page.goto('http://10.10.11.65:9999/Login');
+  await page.goto('http://localhost:9999/Login');
   await page.locator('#Login_Usuario').click();
   await page.locator('#Login_Usuario').fill('microuni');
   await page.locator('#Login_Senha').click();
@@ -56,27 +64,8 @@ test('CASO DE TESTE 1', async ({ page }) => {
   //await page.pause(); // ⬅️ PAUSA NO LUGAR CERTO
   });
 
-
-
-
-
- 
-/**
- * FICHA 482002
- * CASO DE TESTE 1
- * Problema Detectado:
- * O sistema não está calculando corretamente o valor para gerar a base de cálculo e valor da comissão de indicadores
- * Ambiente 10.10.11.65
- * BANCO DE DADOS:Comfergil_Diego
- * Versão: 5.91.9
- * RESULTADO ESPERADO  DIFERENTE DO CORRETO:
- * Base de Cálculo: <> R$ 106,72
- * Valor da Comissão: <> R$ 1,07
- */
-
- test('CASO DE TESTE 2', async ({ page }) => {
-  await page.goto('http://10.10.11.98:9999/Login');
-  await page.locator('#Login_Usuario').click();
+ /* test('CASO DE TESTE 2', async ({ page }) => {
+  await page.goto('http://10.10.11.98:9999/Login');  await page.locator('#Login_Usuario').click();
   await page.locator('#Login_Usuario').fill('microuni');
   await page.locator('#Login_Senha').click();
   await page.locator('#Login_Senha').fill('m');
@@ -117,4 +106,4 @@ test('CASO DE TESTE 1', async ({ page }) => {
 
  
   //await page.pause(); // ⬅️ PAUSA NO LUGAR CERTO
-  }); 
+  });  */
