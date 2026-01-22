@@ -6,20 +6,35 @@
 
 ```ts
 /**
- * FICHA ?
- * CASO DE TESTE ?
- * Problema Detectado:
- * ?
+ * FICHA 475854
+ * CASO DE TESTE ,,,
+ * Problema Detectado: OrcaWeb não está validando telefone dos clientes.
  * Ambiente: 10.10.11.65
- * BANCO DE DADOS: ?
- * Versão: ?
- *
+ * BANCO DE DADOS: -
+ * Versão: -
+
+ * OBJETIVOS DO TESTES:
+ * CASO DE TESTE 1º:
+ -
+ * CASO DE TESTE 2º:
+ -
+ * CASO DE TESTE 3º:
+ -
+ 
  * RESULTADO ESPERADO:
- * ?
- * 
- * RESULTADO OBTIDO:
- * ?
- */
+
+  * CASO DE TESTE 1º
+ - 
+  * CASO DE TESTE 2º
+ - 
+  * CASO DE TESTE 3º
+ - 
+
+ 
+/* =========================
+   COMANDOS SQL  AUXILIARES
+
+   ========================= */
 
 
 ----------------------------------------------------------------------------------------------------------
