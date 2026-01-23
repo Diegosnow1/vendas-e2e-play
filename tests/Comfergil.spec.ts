@@ -21,89 +21,68 @@
 
   import { selectors,test,expect } from '@playwright/test';
 
-test('CASO DE TESTE 1', async ({ page }) => {
+  //FAZER LOGIN
+  async function fazerLogin(page,usuario,senha) {
+  await selectors.setTestIdAttribute("id");
   await page.goto('http://localhost:9999/Login');
-  await page.locator('#Login_Usuario').click();
-  await page.locator('#Login_Usuario').fill('microuni');
-  await page.locator('#Login_Senha').click();
-  await page.locator('#Login_Senha').fill('m');
-  await page.getByRole('button', { name: 'Entrar' }).click();
-  await page.getByText('Menu').click();
-  await page.getByRole('link', { name: 'Venda' }).click();
-  await page.locator('#senha-vendedor-input').fill('1');
-  await page.getByRole('button', { name: 'Ok' }).click();
-  await page.locator('#PesquisaProdutos_Codigo').click();
-  await page.locator('#PesquisaProdutos_Codigo').fill('03222');
-  await page.getByRole('button', { name: 'Pesquisar', exact: true }).click();
-  await page.getByRole('button', { name: 'Ok' }).nth(1).click();
-  await page.getByRole('textbox', { name: 'Inserção rápida do produto no' }).click();
-  await page.getByRole('textbox', { name: 'Inserção rápida do produto no' }).fill('00918');
-  await page.getByRole('button', { name: 'Adicionar' }).click();
-  await page.locator('#Totalizador_PercentualDesconto').click();
-  await page.locator('#Totalizador_PercentualDesconto').fill('11');
-  await page.locator('#Totalizador_PercentualDesconto').press('Tab');
-  await page.getByRole('link', { name: ' Cliente' }).click();
-  await page.locator('#PesquisaCliente_CampoNome').click();
-  await page.locator('#PesquisaCliente_CampoNome').fill('PEDRO KLEBIM SANTANA (HAGBEBB)');
-  await page.getByRole('button', { name: 'Pesquisar' }).click();
-  await page.getByText('PEDRO KLEBIM SANTANA (HAGBEBB)').click();
-  await page.getByRole('button', { name: 'Salvar' }).click();
-  await page.getByRole('link', { name: ' Comissões' }).click()
-  await page.getByRole('checkbox', { name: 'Não Relacionados' }).check();
-  await page.getByRole('button', { name: 'Pesquisar' }).click();
-  await page.getByText('NADYA ISABELINDA LIMA (').click();
-  await page.locator('#pesquisaIndicador-campoPesquisaNomeIndicador').click();
+  await page.getByTestId('Login_Usuario').click();
+  await page.getByTestId('Login_Usuario').fill(usuario);
+  await page.getByTestId('Login_Usuario').press('Tab');
+  await page.getByTestId('Login_Senha').fill(senha);
+  await page.getByTestId('Login_Senha').press('Enter');
+  await page.getByTestId('abrirMenuPrincipal').click();
+  await page.getByTestId('MenuPrincipal_OrcamentoVenda').click();
+  await page.getByTestId('senha-vendedor-input').fill('1');
+  await page.getByTestId('senha-vendedor-input').press('Enter');
+  }
+ 
+  //INSERIR PRODUTOS  
+  async function InserirProduto(page,codigo) {
+  await page.getByTestId('PesquisaProdutos_Codigo').click();
+  await page.getByTestId('PesquisaProdutos_Codigo').fill(codigo);
+  await page.getByTestId('PesquisaProdutos_Codigo').press('Enter');
+  await page.getByTestId('BarraFerramentasGrid_botaoOk').nth(1).click();
+  await page.getByTestId('grid-itens__barra-ferramentas__input-referencia').fill('00918');
+  await page.getByTestId('grid-itens__barra-ferramentas__input-referencia').press('Enter');
+  await page.getByTestId('Totalizador_PercentualDesconto').click();
+  await page.getByTestId('Totalizador_PercentualDesconto').fill('11');
+  await page.getByTestId('Totalizador_PercentualDesconto').press('Tab');
+ 
+ }
 
-  
+ //INSERIR CLIENTE  
+ async function InserirCliente(page,cliente) {
+  await page.getByTestId('orcamento_menu_cliente_react').click();
+  await page.getByTestId('PesquisaCliente_CampoNome').click();
+  await page.getByTestId('PesquisaCliente_CampoNome').fill(cliente);
+  await page.getByTestId('PesquisaCliente_BarraFerramenta_BotaoPesquisar').click();
+  await page.getByTestId('PesquisarCliente_Coluna_Nome_0').click();
+  await page.getByTestId('DadosBasicosCliente_CampoApelido').click();
+  await page.getByTestId('DadosBasicosCliente_CampoApelido').fill('a');
+  await page.getByTestId('AbasPesquisaClienteContainer_BotaoSalvar').click();
+ 
+ }
+
+ //INSERIR INDICADOR
+  async function InserirIndicador(page,indicador) {
+  await page.getByTestId('orcamento_menu_comissoes_react').click();
+  await page.getByTestId('pesquisaIndicador-NaoRelacionado').check();
+  await page.getByTestId('pesquisaIndicador-botaoPesquisarIndicador').click();
+  await page.getByText(indicador).click();
+  await page.getByTestId('DetalhesComissao_botaoAplicarComissao').click();
+ }
+ 
+  test('CASO DE TESTE 1', async ({ page }) => {
+  await fazerLogin(page,'VENDAS01','1234');
+  await InserirProduto(page,'03222');
+  await InserirCliente(page,'CARLOS CONFLITSON MENDES');
+  await InserirIndicador(page,'NADYA ISABELINDA LIMA');
+ 
   ///VALOR ESPERADO APÓS CORREÇÃO DO BUG
   await expect(page.locator('body')).toContainText('R$ 106,72');
   await expect(page.locator('body')).toContainText('R$ 1,07'); 
 
-
- 
-  //await page.pause(); // ⬅️ PAUSA NO LUGAR CERTO
+ //await page.pause(); // ⬅️ PAUSA NO LUGAR CERTO
   });
 
- /* test('CASO DE TESTE 2', async ({ page }) => {
-  await page.goto('http://10.10.11.98:9999/Login');  await page.locator('#Login_Usuario').click();
-  await page.locator('#Login_Usuario').fill('microuni');
-  await page.locator('#Login_Senha').click();
-  await page.locator('#Login_Senha').fill('m');
-  await page.getByRole('button', { name: 'Entrar' }).click();
-  await page.getByText('Menu').click();
-  await page.getByRole('link', { name: 'Venda' }).click();
-  await page.locator('#senha-vendedor-input').fill('1');
-  await page.getByRole('button', { name: 'Ok' }).click();
-  await page.locator('#PesquisaProdutos_Codigo').click();
-  await page.locator('#PesquisaProdutos_Codigo').fill('03222');
-  await page.getByRole('button', { name: 'Pesquisar', exact: true }).click();
-  await page.getByRole('button', { name: 'Ok' }).nth(1).click();
-  await page.getByRole('textbox', { name: 'Inserção rápida do produto no' }).click();
-  await page.getByRole('textbox', { name: 'Inserção rápida do produto no' }).fill('00918');
-  await page.getByRole('button', { name: 'Adicionar' }).click();
-  await page.locator('#Totalizador_PercentualDesconto').click();
-  await page.locator('#Totalizador_PercentualDesconto').fill('11');
-  await page.locator('#Totalizador_PercentualDesconto').press('Tab');
-  await page.getByRole('link', { name: ' Cliente' }).click();
-  await page.locator('#PesquisaCliente_CampoNome').click();
-  await page.locator('#PesquisaCliente_CampoNome').fill('PEDRO KLEBIM SANTANA (HAGBEBB)');
-  await page.getByRole('button', { name: 'Pesquisar' }).click();
-  await page.getByText('PEDRO KLEBIM SANTANA (HAGBEBB)').click();
-  await page.getByRole('button', { name: 'Salvar' }).click();
-  await page.getByRole('link', { name: ' Comissões' }).click()
-  await page.getByRole('checkbox', { name: 'Não Relacionados' }).check();
-  await page.getByRole('button', { name: 'Pesquisar' }).click();
-  await page.getByText('NADYA ISABELINDA LIMA (').click();
-  await page.locator('#pesquisaIndicador-campoPesquisaNomeIndicador').click();
-
-
-
-
-  ///VALOR ESPERADO APÓS CORREÇÃO DO BUG
-  await expect(page.locator('body')).toContainText('R$ 106,72');
-  await expect(page.locator('body')).toContainText('R$ 1,07'); 
-
-
  
-  //await page.pause(); // ⬅️ PAUSA NO LUGAR CERTO
-  });  */

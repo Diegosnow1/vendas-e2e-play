@@ -3,13 +3,13 @@
  * CASO DE TESTE 1
  * Problema Detectado:
  * OrcaWeb não está validando telefone dos clientes.
- * Ambiente: 10.10.11.65
+ * Ambiente: 10.10.11.109
  * BANCO DE DADOS: Fermacom_Diego
  * Versão: Branch 475854_Jeremias_ValidarTelefoneCliente_Clube_da_Casa_Silca
 
  * OBJETIVOS DO TESTES:
  * CASO DE TESTE 1º:
- -Validar campos (telefone e celular) com dados válidos (3333412207).
+ -Validar campos (telefone e celular) com dados vazios.
  * CASO DE TESTE 2º:
  -Validar campos (telefone e celular) com dados válidos (3333412207).
  * CASO DE TESTE 3º:
@@ -74,7 +74,7 @@ test('CASO DE TESTE ', async ({ page }) => {
   await expect(page.getByTestId('toast-container')).toContainText('×Registro atualizado com sucesso!');
 
 
-  //caso de teste 2 - telefone e celular valido
+  //caso de teste 2 - telefone e celular válido
   await page.getByTestId('AbasPesquisaClienteContainer_Breadcrumb_BtnLimpar').click();
   await page.getByTestId('PesquisarClienteContainer_Breadcrumb_BtnLimpar').click();
   await page.getByTestId('PesquisaCliente_CampoNome').click();
