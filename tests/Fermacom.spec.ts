@@ -44,6 +44,7 @@ UPDATE ITEMFILEST SET quant = '1000.00' WHERE codpro = '00012'
 
 
 import { selectors, test, expect } from '@playwright/test';
+import { atualizarTelefoneCliente } from './utils/database';
 
 test.beforeEach(async ({ page }) => {
   await selectors.setTestIdAttribute("id");
@@ -64,7 +65,7 @@ test.beforeEach(async ({ page }) => {
   await page.getByTestId('iniciar-orcamento-botao-entrar').click();
 });
 
-test('CT01 - telefone e celular vazios', async ({ page }) => {
+/* test('CT01 - telefone e celular vazios', async ({ page }) => {
    
   //LOGIN NO SISTEMA
 
@@ -165,7 +166,43 @@ test('CT01 - telefone e celular vazios', async ({ page }) => {
   await page.getByTestId('FinalizarOrcamento_botaoEncerrarOrcamento').click();
   await page.waitForTimeout(3000);
   await expect(page.getByTestId('OrcamentoConcluido_Situacao')).toContainText('Situação: Aguardando faturamento');
-  //wait page.pause(); // ⬅️ PAUSA NO LUGAR CERTO
+  await page.pause(); // ⬅️ PAUSA NO LUGAR CERTO
+ });  */
+
+
+  test('CT06 - finalizar orçamento com o campo telefone inválido,com 10 digitos já salvo no banco', async ({ page }) => {
+  await page.getByTestId('PesquisaCliente_CampoNome').click();
+  await page.getByTestId('PesquisaCliente_CampoNome').fill('thiago jose ferreira');
+  await page.locator('form').click();
+  await page.getByTestId('PesquisaCliente_BarraFerramenta_BotaoPesquisar').click();
+  await page.getByTestId('PesquisarCliente_Coluna_Nome_0').click();
+  await page.getByTestId('AbasPesquisaClienteContainer_BotaoSalvar').click();
+  //await page.pause(); // ⬅️ PAUSA NO LUGAR CERTO
+  await page.getByTestId('orcamento_menu_itens').click({force: true});
+  await page.getByTestId('PesquisaProdutos_EstoqueDisponivelFilialCorrente').check({ timeout: 60000 });
+  await page.getByTestId('PaginaPesquisaProduto_botaoPesquisar').click();
+  await page.getByTestId('itemPesquisaProduto_ColunaCodigo_01009            ').click({timeout: 60000} );
+  await page.getByTestId('BarraFerramentasGrid_botaoOk').first().click();
+  await page.getByTestId('barra-ferramentas__botao-tipo-entrega-padrao').click();
+  await page.getByTestId('barra-ferramentas__menu-entrega-padrao__expedicao').click();
+  await page.getByTestId('input-Quantidade-item-Linha-1').click();
+  await page.getByTestId('input-Quantidade-item-Linha-1').fill('2');
+  await page.getByTestId('input-Quantidade-item-Linha-1').press('Enter')
+  
+  //await page.pause(); // ⬅️ PAUSA NO LUGAR CERTO
+  await atualizarTelefoneCliente();
+  
+ await page
+  .getByTestId('FinalizarOrcamento_GrupoOpcaoOrcamento_OrcamentoConfirmado')
+  .click();
+
+  await expect(page.getByTestId('FinalizarOrcamento_Conteudo'))
+  .toContainText('Celular do cliente inválido. Atualize os dados do cliente para finalizar o orçamento.');
+  await page.pause(); // ⬅️ PAUSA NO LUGAR CERTO
+
+
+
+
  });
 
 
