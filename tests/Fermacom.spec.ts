@@ -43,7 +43,7 @@ test('CASO DE TESTE ', async ({ page }) => {
  
   //LOGIN NO SISTEMA
   await selectors.setTestIdAttribute("id");
-  await page.goto('http://localhost:9999/Login');
+  await page.goto('http://10.10.11.137:9999/Login');
   await page.getByTestId('Login_Usuario').click();
   await page.getByTestId('Login_Usuario').fill('vendas01');
   await page.getByTestId('Login_Usuario').press('Tab');
@@ -72,6 +72,7 @@ test('CASO DE TESTE ', async ({ page }) => {
   await page.getByTestId('AbasPesquisaClienteContainer_BotaoSalvar').click();
   await page.getByTestId('logotipoClienteIndexOrcamento').click();
   await expect(page.getByTestId('toast-container')).toContainText('×Registro atualizado com sucesso!');
+  await page.pause(); // ⬅️ PAUSA NO LUGAR CERTO
 
 
   //caso de teste 2 - telefone e celular válido
@@ -87,6 +88,8 @@ test('CASO DE TESTE ', async ({ page }) => {
   await page.getByRole('textbox', { name: '(99) 99999-' }).nth(1).fill('(33) 9987-20036');
   await page.getByTestId('AbasPesquisaClienteContainer_BotaoSalvar').click();
   await expect(page.getByTestId('toast-container')).toContainText('×Registro atualizado com sucesso!');
+  await page.pause(); // ⬅️ PAUSA NO LUGAR CERTO
+  
 
    //caso de teste 3 - telefone e celular invalido
   await page.getByTestId('AbasPesquisaClienteContainer_Breadcrumb_BtnLimpar').click();
@@ -102,6 +105,31 @@ test('CASO DE TESTE ', async ({ page }) => {
   await page.getByRole('textbox', { name: '(99) 99999-' }).nth(1).fill('(33) 9987-20___');
   await page.getByTestId('AbasPesquisaClienteContainer_BotaoSalvar').click();
   await expect(page.getByTestId('toast-container')).toContainText('O campo "Telefone" é inválido.O campo "Celular" é inválido.');
+  await page.pause(); // ⬅️ PAUSA NO LUGAR CERTO
+
+
+
+
+   //caso de teste 4 -  sobrescrita com CTRL+A no campo telefone e celular.
+  await page.getByTestId('AbasPesquisaClienteContainer_Breadcrumb_BtnLimpar').click();
+  await page.getByTestId('PesquisaCliente_CampoNome').click();
+  await page.getByTestId('PesquisaCliente_CampoNome').fill('Thiago Jose Ferreira');
+  await page.getByTestId('PesquisaCliente_BarraFerramenta_BotaoPesquisar').click();
+  await page.getByTestId('PesquisarCliente_Coluna_Nome_0').click();
+  await page.getByRole('textbox', { name: '(99) 99999-' }).first().click();
+  await page.getByRole('textbox', { name: '(99) 99999-' }).first().press('ControlOrMeta+a');
+  await page.getByRole('textbox', { name: '(99) 99999-' }).first().fill('(11) 1111-1111_');
+  await page.getByRole('textbox', { name: '(99) 99999-' }).first().press('Tab');
+  await page.getByRole('textbox', { name: '(99) 99999-' }).nth(1).press('ControlOrMeta+a');
+  await page.getByRole('textbox', { name: '(99) 99999-' }).nth(1).fill('(22) 2222-22222_');
+  await page.getByTestId('AbasPesquisaClienteContainer_BotaoSalvar').click();
+  await expect(page.getByRole('textbox', { name: '(99) 99999-' }).first()).toHaveValue('(11) 1111-1111');
+  await expect(page.getByRole('textbox', { name: '(99) 99999-' }).nth(1)).toHaveValue('(22) 22222-2222');
+  await page.pause(); // ⬅️ PAUSA NO LUGAR CERTO
+ 
+
+
+
 
 
   //Finalizar o pedido como orcamento confirmado
