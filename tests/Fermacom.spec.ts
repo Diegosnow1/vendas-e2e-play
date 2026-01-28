@@ -48,24 +48,21 @@ import { atualizarTelefoneCliente } from './utils/database';
 
 test.beforeEach(async ({ page }) => {
   await selectors.setTestIdAttribute("id");
-
-  await page.goto('http://10.10.11.137:9999/Login');
-
+  await page.goto('http://10.10.11.109:9999/Login');
   await page.getByTestId('Login_Usuario').fill('vendas01');
   await page.getByTestId('Login_Usuario').press('Tab');
   await page.getByTestId('Login_Senha').fill('m');
   await page.getByTestId('Login_Senha').press('Enter');
-
-  await page.getByTestId('abrirMenuPrincipal').click({ force: true });
-  await page.getByTestId('MenuPrincipal_OrcamentoVenda').click();
-
+  await page.getByTestId('abrirMenuPrincipal').click({force: true });
+  await page.getByTestId('MenuPrincipal_OrcamentoVenda').click({force: true });
   await page.getByTestId('senha-vendedor-input').fill('1');
   await page.getByTestId('senha-vendedor-input').press('Enter');
-
   await page.getByTestId('iniciar-orcamento-botao-entrar').click();
 });
 
-/* test('CT01 - telefone e celular vazios', async ({ page }) => {
+
+
+test('CT01 - telefone e celular vazios', async ({ page }) => {
    
   //LOGIN NO SISTEMA
 
@@ -82,7 +79,7 @@ test.beforeEach(async ({ page }) => {
   await page.getByTestId('AbasPesquisaClienteContainer_BotaoSalvar').click();
   await page.getByTestId('logotipoClienteIndexOrcamento').click();
   await expect(page.getByTestId('toast-container')).toContainText('×Registro atualizado com sucesso!');
-  //await page.pause(); // ⬅️ PAUSA NO LUGAR CERTO
+  
   });
 
 
@@ -99,7 +96,7 @@ test.beforeEach(async ({ page }) => {
   await page.getByRole('textbox', { name: '(99) 99999-' }).nth(1).fill('(33) 9987-20036');
   await page.getByTestId('AbasPesquisaClienteContainer_BotaoSalvar').click();
   await expect(page.getByTestId('toast-container')).toContainText('×Registro atualizado com sucesso!');
-  //await page.pause(); // ⬅️ PAUSA NO LUGAR CERTO
+  
   });
  
   
@@ -118,7 +115,7 @@ test.beforeEach(async ({ page }) => {
   await page.getByRole('textbox', { name: '(99) 99999-' }).nth(1).fill('(33) 9987-20___');
   await page.getByTestId('AbasPesquisaClienteContainer_BotaoSalvar').click();
   await expect(page.getByTestId('toast-container')).toContainText('O campo "Telefone" é inválido.O campo "Celular" é inválido.');
-  //await page.pause(); // ⬅️ PAUSA NO LUGAR CERTO
+  
  });
    
 
@@ -139,7 +136,7 @@ test.beforeEach(async ({ page }) => {
   await page.getByTestId('AbasPesquisaClienteContainer_BotaoSalvar').click();
   await expect(page.getByRole('textbox', { name: '(99) 99999-' }).first()).toHaveValue('(11) 1111-1111');
   await expect(page.getByRole('textbox', { name: '(99) 99999-' }).nth(1)).toHaveValue('(22) 22222-2222');
-  //await page.pause(); // ⬅️ PAUSA NO LUGAR CERTO
+  
  });
 
 
@@ -166,18 +163,18 @@ test.beforeEach(async ({ page }) => {
   await page.getByTestId('FinalizarOrcamento_botaoEncerrarOrcamento').click();
   await page.waitForTimeout(3000);
   await expect(page.getByTestId('OrcamentoConcluido_Situacao')).toContainText('Situação: Aguardando faturamento');
-  await page.pause(); // ⬅️ PAUSA NO LUGAR CERTO
- });  */
+  
+ });  
 
 
   test('CT06 - finalizar orçamento com o campo telefone inválido,com 10 digitos já salvo no banco', async ({ page }) => {
+  await atualizarTelefoneCliente();
   await page.getByTestId('PesquisaCliente_CampoNome').click();
   await page.getByTestId('PesquisaCliente_CampoNome').fill('thiago jose ferreira');
   await page.locator('form').click();
   await page.getByTestId('PesquisaCliente_BarraFerramenta_BotaoPesquisar').click();
   await page.getByTestId('PesquisarCliente_Coluna_Nome_0').click();
   await page.getByTestId('AbasPesquisaClienteContainer_BotaoSalvar').click();
-  //await page.pause(); // ⬅️ PAUSA NO LUGAR CERTO
   await page.getByTestId('orcamento_menu_itens').click({force: true});
   await page.getByTestId('PesquisaProdutos_EstoqueDisponivelFilialCorrente').check({ timeout: 60000 });
   await page.getByTestId('PaginaPesquisaProduto_botaoPesquisar').click();
@@ -188,22 +185,11 @@ test.beforeEach(async ({ page }) => {
   await page.getByTestId('input-Quantidade-item-Linha-1').click();
   await page.getByTestId('input-Quantidade-item-Linha-1').fill('2');
   await page.getByTestId('input-Quantidade-item-Linha-1').press('Enter')
-  
-  //await page.pause(); // ⬅️ PAUSA NO LUGAR CERTO
-  await atualizarTelefoneCliente();
-  
- await page
-  .getByTestId('FinalizarOrcamento_GrupoOpcaoOrcamento_OrcamentoConfirmado')
-  .click();
-
-  await expect(page.getByTestId('FinalizarOrcamento_Conteudo'))
-  .toContainText('Celular do cliente inválido. Atualize os dados do cliente para finalizar o orçamento.');
-  await page.pause(); // ⬅️ PAUSA NO LUGAR CERTO
-
-
-
-
- });
+  await page.getByTestId('orcamento_menu_finalizar').click();
+  await page.getByTestId('FinalizarOrcamento_GrupoOpcaoOrcamento_OrcamentoConfirmado').check();
+  await expect(page.getByTestId('FinalizarOrcamento_Conteudo')).toContainText('Celular do cliente inválido. Atualize os dados do cliente para finalizar o orçamento.');
+ 
+});
 
 
 

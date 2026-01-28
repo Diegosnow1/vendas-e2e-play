@@ -70,12 +70,28 @@ git clone https://github.com/Diegosnow1/vendas-e2e-play.git
 ----------------------------------------------------------------------------------------------------------
 
 🧪 Playwright — Comandos principais
+#---- //Executa todos os testes
 npx playwright test
+
+#---//Executa um arquivo específico
 npx playwright test tests/Formatto.spec.ts
-npx playwright test fermacom.spec.ts --project=chromium --debug   //com navegador especifico.
+
+#---//Executa um arquivo específico com navegador visível (1 navegador, sequência)
+npx playwright test tests/Fermacom.spec.ts --headed
+
+#---//Executa um arquivo específico em modo debug (pausa a cada passo)
+npx playwright test tests/Fermacom.spec.ts --project=chromium --debug
+
+#---//Executa todos os testes em modo debug
 npx playwright test --debug
+
+#---//Abre o relatório HTML da última execução
 npx playwright show-report
+
+#---//Gera testes automaticamente (grava ações do navegador)
 npx playwright codegen http://URL_DO_SISTEMA
+
+#---//Gera testes usando atributo id como test-id
 npx playwright codegen --test-id-attribute id http://URL_DO_SISTEMA
 
 ----------------------------------------------------------------------------------------------------------
