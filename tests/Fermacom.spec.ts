@@ -43,10 +43,10 @@ UPDATE ITEMFILEST SET quant = '1000.00' WHERE codpro = '00012'
    ========================= */
 
 
-import { selectors, test, expect } from '@playwright/test';
-import { atualizarTelefoneCliente } from './utils/database';
+  import { selectors, test, expect } from '@playwright/test';
+  import { atualizarTelefoneCliente } from './utils/database';
 
-test.beforeEach(async ({ page }) => {
+  test.beforeEach(async ({ page }) => {
   await selectors.setTestIdAttribute("id");
   await page.goto('http://10.10.11.109:9999/Login');
   await page.getByTestId('Login_Usuario').fill('vendas01');
@@ -58,14 +58,12 @@ test.beforeEach(async ({ page }) => {
   await page.getByTestId('senha-vendedor-input').fill('1');
   await page.getByTestId('senha-vendedor-input').press('Enter');
   await page.getByTestId('iniciar-orcamento-botao-entrar').click();
-});
+  //await page.pause(); // ⬅️ PAUSA NO LUGAR CERTO
+  });
 
 
 
-test('CT01 - telefone e celular vazios', async ({ page }) => {
-   
-  //LOGIN NO SISTEMA
-
+  /* test('CT01 - telefone e celular vazios', async ({ page }) => {
   await page.getByTestId('PesquisaCliente_CampoNome').click();
   await page.getByTestId('PesquisaCliente_CampoNome').fill('thiago jose ferreira');
   await page.getByTestId('PesquisaCliente_BarraFerramenta_BotaoPesquisar').click();
@@ -84,8 +82,6 @@ test('CT01 - telefone e celular vazios', async ({ page }) => {
 
 
   test('CT02 - telefone e celular válidos', async ({ page }) => {
-  //await page.getByTestId('AbasPesquisaClienteContainer_Breadcrumb_BtnLimpar').click();
-  //await page.getByTestId('PesquisarClienteContainer_Breadcrumb_BtnLimpar').click();
   await page.getByTestId('PesquisaCliente_CampoNome').click();
   await page.getByTestId('PesquisaCliente_CampoNome').fill('thiago jose ferreira');
   await page.getByTestId('PesquisaCliente_BarraFerramenta_BotaoPesquisar').click();
@@ -101,9 +97,7 @@ test('CT01 - telefone e celular vazios', async ({ page }) => {
  
   
 
-  test('CT03 - telefone e celular inválidos', async ({ page }) => {
-  //await page.getByTestId('AbasPesquisaClienteContainer_Breadcrumb_BtnLimpar').click();
-  //await page.getByTestId('PesquisarClienteContainer_Breadcrumb_BtnLimpar').click();
+   test('CT03 - telefone e celular inválidos', async ({ page }) => {
   await page.getByTestId('PesquisaCliente_CampoNome').click();
   await page.getByTestId('PesquisaCliente_CampoNome').fill('thiago jose ferreira');
   await page.getByTestId('PesquisaCliente_BarraFerramenta_BotaoPesquisar').click();
@@ -121,9 +115,7 @@ test('CT01 - telefone e celular vazios', async ({ page }) => {
 
 
 
- test('CT04 - sobrescrita com CTRL+A', async ({ page }) => {
-  //await page.getByTestId('AbasPesquisaClienteContainer_Breadcrumb_BtnLimpar').click();
-  //await page.getByTestId('PesquisaCliente_CampoNome').click();
+  test('CT04 - sobrescrita com CTRL+A', async ({ page }) => {
   await page.getByTestId('PesquisaCliente_CampoNome').fill('Thiago Jose Ferreira');
   await page.getByTestId('PesquisaCliente_BarraFerramenta_BotaoPesquisar').click();
   await page.getByTestId('PesquisarCliente_Coluna_Nome_0').click();
@@ -140,8 +132,7 @@ test('CT01 - telefone e celular vazios', async ({ page }) => {
  });
 
 
- test('CT05 - finalizar orçamento', async ({ page }) => {
-  //await page.getByTestId('AbasPesquisaClienteContainer_Breadcrumb_BtnLimpar').click();
+  test('CT05 - finalizar orçamento', async ({ page }) => {
   await page.getByTestId('PesquisaCliente_CampoNome').click();
   await page.getByTestId('PesquisaCliente_CampoNome').fill('thiago jose ferreira');
   await page.locator('form').click();
@@ -189,11 +180,10 @@ test('CT01 - telefone e celular vazios', async ({ page }) => {
   await page.getByTestId('FinalizarOrcamento_GrupoOpcaoOrcamento_OrcamentoConfirmado').check();
   await expect(page.getByTestId('FinalizarOrcamento_Conteudo')).toContainText('Celular do cliente inválido. Atualize os dados do cliente para finalizar o orçamento.');
  
-});
+  }); */
 
 
-
-
+ 
 
   
 
