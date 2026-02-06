@@ -44,7 +44,7 @@ UPDATE ITEMFILEST SET quant = '1000.00' WHERE codpro = '00012'
 
 
   import { selectors, test, expect } from '@playwright/test';
-  import { atualizarTelefoneCliente } from './utils/database';
+  import { atualizarTelefoneCliente } from '../utils/database';
 
   test.beforeEach(async ({ page }) => {
   await selectors.setTestIdAttribute("id");
@@ -58,12 +58,12 @@ UPDATE ITEMFILEST SET quant = '1000.00' WHERE codpro = '00012'
   await page.getByTestId('senha-vendedor-input').fill('1');
   await page.getByTestId('senha-vendedor-input').press('Enter');
   await page.getByTestId('iniciar-orcamento-botao-entrar').click();
-  //await page.pause(); // ⬅️ PAUSA NO LUGAR CERTO
+  await page.pause(); // ⬅️ PAUSA NO LUGAR CERTO
   });
 
 
 
-  /* test('CT01 - telefone e celular vazios', async ({ page }) => {
+  test('CT01 - telefone e celular vazios', async ({ page }) => {
   await page.getByTestId('PesquisaCliente_CampoNome').click();
   await page.getByTestId('PesquisaCliente_CampoNome').fill('thiago jose ferreira');
   await page.getByTestId('PesquisaCliente_BarraFerramenta_BotaoPesquisar').click();
@@ -77,7 +77,7 @@ UPDATE ITEMFILEST SET quant = '1000.00' WHERE codpro = '00012'
   await page.getByTestId('AbasPesquisaClienteContainer_BotaoSalvar').click();
   await page.getByTestId('logotipoClienteIndexOrcamento').click();
   await expect(page.getByTestId('toast-container')).toContainText('×Registro atualizado com sucesso!');
-  
+  await page.pause(); // ⬅️ PAUSA NO LUGAR CERTO
   });
 
 
@@ -92,7 +92,7 @@ UPDATE ITEMFILEST SET quant = '1000.00' WHERE codpro = '00012'
   await page.getByRole('textbox', { name: '(99) 99999-' }).nth(1).fill('(33) 9987-20036');
   await page.getByTestId('AbasPesquisaClienteContainer_BotaoSalvar').click();
   await expect(page.getByTestId('toast-container')).toContainText('×Registro atualizado com sucesso!');
-  
+  await page.pause(); // ⬅️ PAUSA NO LUGAR CERTO
   });
  
   
@@ -109,7 +109,7 @@ UPDATE ITEMFILEST SET quant = '1000.00' WHERE codpro = '00012'
   await page.getByRole('textbox', { name: '(99) 99999-' }).nth(1).fill('(33) 9987-20___');
   await page.getByTestId('AbasPesquisaClienteContainer_BotaoSalvar').click();
   await expect(page.getByTestId('toast-container')).toContainText('O campo "Telefone" é inválido.O campo "Celular" é inválido.');
-  
+  await page.pause(); // ⬅️ PAUSA NO LUGAR CERTO
  });
    
 
@@ -128,7 +128,7 @@ UPDATE ITEMFILEST SET quant = '1000.00' WHERE codpro = '00012'
   await page.getByTestId('AbasPesquisaClienteContainer_BotaoSalvar').click();
   await expect(page.getByRole('textbox', { name: '(99) 99999-' }).first()).toHaveValue('(11) 1111-1111');
   await expect(page.getByRole('textbox', { name: '(99) 99999-' }).nth(1)).toHaveValue('(22) 22222-2222');
-  
+  await page.pause(); // ⬅️ PAUSA NO LUGAR CERTO
  });
 
 
@@ -154,7 +154,7 @@ UPDATE ITEMFILEST SET quant = '1000.00' WHERE codpro = '00012'
   await page.getByTestId('FinalizarOrcamento_botaoEncerrarOrcamento').click();
   await page.waitForTimeout(3000);
   await expect(page.getByTestId('OrcamentoConcluido_Situacao')).toContainText('Situação: Aguardando faturamento');
-  
+  await page.pause(); // ⬅️ PAUSA NO LUGAR CERTO
  });  
 
 
@@ -179,8 +179,8 @@ UPDATE ITEMFILEST SET quant = '1000.00' WHERE codpro = '00012'
   await page.getByTestId('orcamento_menu_finalizar').click();
   await page.getByTestId('FinalizarOrcamento_GrupoOpcaoOrcamento_OrcamentoConfirmado').check();
   await expect(page.getByTestId('FinalizarOrcamento_Conteudo')).toContainText('Celular do cliente inválido. Atualize os dados do cliente para finalizar o orçamento.');
- 
-  }); */
+  await page.pause(); // ⬅️ PAUSA NO LUGAR CERTO
+  });  
 
 
  
