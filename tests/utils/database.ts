@@ -3,7 +3,7 @@ import sql from 'mssql';
 const config = {
   user: 'trade',
   password: 'tradem',
-  server: '10.10.11.109', // IP do SQL Server
+  server: 'localhost', // IP do SQL Server
   database: 'Fermacom_Diego',
   options: {
     encrypt: false,

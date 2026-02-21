@@ -48,13 +48,13 @@ UPDATE ITEMFILEST SET quant = '1000.00' WHERE codpro = '00012'
 
   test.beforeEach(async ({ page }) => {
   await selectors.setTestIdAttribute("id");
-  await page.goto('http://10.10.11.109:9999/Login');
+  await page.goto('localhost:9999/Login');
   await page.getByTestId('Login_Usuario').fill('vendas01');
   await page.getByTestId('Login_Usuario').press('Tab');
   await page.getByTestId('Login_Senha').fill('m');
   await page.getByTestId('Login_Senha').press('Enter');
   await page.getByTestId('abrirMenuPrincipal').click({force: true });
-  await page.getByTestId('MenuPrincipal_OrcamentoVenda').click({force: true });
+  await page.getByTestId('MenuPrincipal_OrcamentoVenda').click();
   await page.getByTestId('senha-vendedor-input').fill('1');
   await page.getByTestId('senha-vendedor-input').press('Enter');
   await page.getByTestId('iniciar-orcamento-botao-entrar').click();
@@ -150,7 +150,7 @@ UPDATE ITEMFILEST SET quant = '1000.00' WHERE codpro = '00012'
   await page.getByTestId('input-Quantidade-item-Linha-1').fill('2');
   await page.getByTestId('input-Quantidade-item-Linha-1').press('Enter');
   await page.getByTestId('orcamento_menu_finalizar').click();
-  await page.getByTestId('FinalizarOrcamento_GrupoOpcaoOrcamento_OrcamentoConfirmado').check();
+  await page.getByTestId('FinalizarOrcamento_GrupoOpcaoOrcamento_OrcamentoConfirmado').click();
   await page.getByTestId('FinalizarOrcamento_botaoEncerrarOrcamento').click();
   await page.waitForTimeout(3000);
   await expect(page.getByTestId('OrcamentoConcluido_Situacao')).toContainText('Situação: Aguardando faturamento');
@@ -177,7 +177,7 @@ UPDATE ITEMFILEST SET quant = '1000.00' WHERE codpro = '00012'
   await page.getByTestId('input-Quantidade-item-Linha-1').fill('2');
   await page.getByTestId('input-Quantidade-item-Linha-1').press('Enter')
   await page.getByTestId('orcamento_menu_finalizar').click();
-  await page.getByTestId('FinalizarOrcamento_GrupoOpcaoOrcamento_OrcamentoConfirmado').check();
+  await page.getByTestId('FinalizarOrcamento_GrupoOpcaoOrcamento_OrcamentoConfirmado').click();
   await expect(page.getByTestId('FinalizarOrcamento_Conteudo')).toContainText('Celular do cliente inválido. Atualize os dados do cliente para finalizar o orçamento.');
   await page.pause(); // ⬅️ PAUSA NO LUGAR CERTO
   });  
