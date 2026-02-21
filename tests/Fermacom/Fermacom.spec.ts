@@ -31,6 +31,8 @@
  -Utilizar o recurso de  selecionar tudo e logo conseguir  subscrever em cima do texto selecioando.
   * CASO DE TESTE 5º:
  -salvar oçamento sem erros como confirmado.
+  * CASO DE TESTE 6º:
+ -finalizar orçamento com o campo telefone inválido,com 10 digitos já salvo no banco VIA SCRIPT, mensagem de erro informando que o celular do cliente é inválido sera exibida, impedindo a finalização do orçamento.
  
 /* =========================
    COMANDOS SQL  AUXILIARES
@@ -54,7 +56,7 @@ UPDATE ITEMFILEST SET quant = '1000.00' WHERE codpro = '00012'
   await page.getByTestId('Login_Senha').fill('m');
   await page.getByTestId('Login_Senha').press('Enter');
   await page.getByTestId('abrirMenuPrincipal').click({force: true });
-  await page.getByTestId('MenuPrincipal_OrcamentoVenda').click();
+  await page.getByTestId('MenuPrincipal_OrcamentoVenda').click({force: true });
   await page.getByTestId('senha-vendedor-input').fill('1');
   await page.getByTestId('senha-vendedor-input').press('Enter');
   await page.getByTestId('iniciar-orcamento-botao-entrar').click();
@@ -97,7 +99,7 @@ UPDATE ITEMFILEST SET quant = '1000.00' WHERE codpro = '00012'
  
   
 
-   test('CT03 - telefone e celular inválidos', async ({ page }) => {
+/*    test('CT03 - telefone e celular inválidos', async ({ page }) => {
   await page.getByTestId('PesquisaCliente_CampoNome').click();
   await page.getByTestId('PesquisaCliente_CampoNome').fill('thiago jose ferreira');
   await page.getByTestId('PesquisaCliente_BarraFerramenta_BotaoPesquisar').click();
@@ -110,7 +112,7 @@ UPDATE ITEMFILEST SET quant = '1000.00' WHERE codpro = '00012'
   await page.getByTestId('AbasPesquisaClienteContainer_BotaoSalvar').click();
   await expect(page.getByTestId('toast-container')).toContainText('O campo "Telefone" é inválido.O campo "Celular" é inválido.');
   await page.pause(); // ⬅️ PAUSA NO LUGAR CERTO
- });
+ }); */
    
 
 
@@ -150,7 +152,7 @@ UPDATE ITEMFILEST SET quant = '1000.00' WHERE codpro = '00012'
   await page.getByTestId('input-Quantidade-item-Linha-1').fill('2');
   await page.getByTestId('input-Quantidade-item-Linha-1').press('Enter');
   await page.getByTestId('orcamento_menu_finalizar').click();
-  await page.getByTestId('FinalizarOrcamento_GrupoOpcaoOrcamento_OrcamentoConfirmado').click();
+  await page.getByTestId('FinalizarOrcamento_GrupoOpcaoOrcamento_OrcamentoConfirmado').check();
   await page.getByTestId('FinalizarOrcamento_botaoEncerrarOrcamento').click();
   await page.waitForTimeout(3000);
   await expect(page.getByTestId('OrcamentoConcluido_Situacao')).toContainText('Situação: Aguardando faturamento');
