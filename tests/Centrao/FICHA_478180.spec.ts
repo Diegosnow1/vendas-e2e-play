@@ -36,7 +36,9 @@ import { selectors,test,expect } from '@playwright/test';
   await page.getByTestId('Login_Senha').press('CapsLock');
   await page.getByTestId('Login_Senha').fill(senha);
   await page.getByTestId('Login_BotaoEntrar').click();
+  await page.waitForLoadState('networkidle');
   await page.getByTestId('abrirMenuPrincipal').click();
+  await page.waitForTimeout(1000);
   }
 
   async function pesquisarOrcamento(page,numeroPedido) {
