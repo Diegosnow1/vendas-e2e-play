@@ -1,4 +1,4 @@
-import { defineConfig } from '@playwright/test';
+import { defineConfig  } from '@playwright/test';
 
 export default defineConfig({
   testDir: './tests',
@@ -20,9 +20,14 @@ export default defineConfig({
     trace: 'on-first-retry',
   },
 
-  projects: [
-    {
-      name: 'chromium',
+projects: [
+  {
+    name: 'edge',
+    use: {
+      browserName: 'chromium',
+      channel: 'msedge', // força Edge
+      headless: false,
     },
-  ],
+  },
+],
 });
