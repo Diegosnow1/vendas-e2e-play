@@ -48,7 +48,7 @@ UPDATE ITEMFILEST SET quant = '1000.00' WHERE codpro = '00012'
 
   test.beforeEach(async ({ page }) => {
   await selectors.setTestIdAttribute("id");
-  await page.goto('http://10.10.11.109:9999/Login');
+  await page.goto('localhost:9999/Login');
   await page.getByTestId('Login_Usuario').fill('vendas01');
   await page.getByTestId('Login_Usuario').press('Tab');
   await page.getByTestId('Login_Senha').fill('m');
