@@ -28,7 +28,7 @@
 import { selectors,test,expect } from '@playwright/test';
 
   async function fazerLogin(page,usuario,senha) {
-  await page.goto('http://localhost:9999/Login');
+  await page.goto('http://10.10.11.110:9999/Login');
   await page.getByTestId('Login_Usuario').click();
   await page.getByTestId('Login_Usuario').fill(usuario);
   await page.getByTestId('Login_Usuario').press('Tab');
