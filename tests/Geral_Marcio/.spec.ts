@@ -71,12 +71,15 @@ import { selectors,test,expect } from '@playwright/test';
   await page.getByText('Mais Filtros').click();
   await page.getByTestId('MaisFiltros_ProdutoFinal').check();
   await page.getByTestId('PaginaPesquisaProduto_botaoPesquisar').click();
-  await page.getByTestId('itemPesquisaProduto_ColunaCodigo_20232').getByText('20232').click();
-  await page.getByTestId('ItemPesquisaProduto_BotaoTinta_20232').click();
+  await page.getByTestId('itemPesquisaProduto_ColunaCodigo_20245').getByText('20245').click();
+  await page.getByTestId('ItemPesquisaProduto_BotaoTinta_20245').click();
   await page.getByRole('button', { name: 'Pesquisar' }).click();
-  await page.getByText('1001').click();
+  
+  await page.getByText('60775').click();
   await page.getByRole('button', { name: 'OK' }).first().click();
+  
   await page.getByTestId('BarraFerramentasGrid_botaoOk').first().click();
+  //await page.pause(); // ⬅️ PAUSA NO LUGAR CERTO 
  }
 
 
