@@ -31,7 +31,7 @@
 import { selectors,test,expect } from '@playwright/test';
 
   async function fazerLogin(page,usuario,senha) {
-  await page.goto('http://10.10.11.110:9999/Login');
+  await page.goto('http://10.10.11.83:9999/Login');
   await page.getByTestId('Login_Usuario').click();
   await page.getByTestId('Login_Usuario').fill(usuario);
   await page.getByTestId('Login_Usuario').press('Tab');
@@ -62,6 +62,8 @@ import { selectors,test,expect } from '@playwright/test';
   await page.getByRole('textbox').nth(3).fill('1');
   await page.getByRole('textbox').nth(3).press('Tab');
   await page.getByRole('button', { name: 'Aplicar' }).click();
+  await page.getByTestId('orcamento_menu_formapagamento_react').click();
+  await page.waitForLoadState('networkidle');
   //await page.pause(); // ⬅️ PAUSA NO LUGAR CERTO 
 
   }
@@ -74,16 +76,13 @@ import { selectors,test,expect } from '@playwright/test';
   await page.getByTestId('itemPesquisaProduto_ColunaCodigo_20245').getByText('20245').click();
   await page.getByTestId('ItemPesquisaProduto_BotaoTinta_20245').click();
   await page.getByRole('button', { name: 'Pesquisar' }).click();
-  
   await page.getByText('60775').click();
   await page.getByRole('button', { name: 'OK' }).first().click();
-  
   await page.getByTestId('BarraFerramentasGrid_botaoOk').first().click();
   //await page.pause(); // ⬅️ PAUSA NO LUGAR CERTO 
  }
 
-
- async function FinalizarOrcamento(page) {
+  async function FinalizarOrcamento(page) {
   await page.getByTestId('orcamento_menu_finalizar').click();
   await page.getByTestId('orcamento_menu_finalizar').click();
   await page.getByTestId('FinalizarOrcamento_GrupoOpcaoOrcamento_ApenasOrcando').click();
@@ -117,8 +116,8 @@ test.describe('Orçamentos - Geral Marcio', () => {
   test('(1-B)PEDIDO COM  PRODUTO TINTOMETRICO', async ({ page }) => {
     // já logado pelo beforeEach
     await MenuVenda(page);
-    //await page.pause(); // ⬅️ PAUSA NO LUGAR CERTO
     await adicionarProdutoTintometrico(page);
+    //await FinalizarOrcamento(page);
    
   });
 });
