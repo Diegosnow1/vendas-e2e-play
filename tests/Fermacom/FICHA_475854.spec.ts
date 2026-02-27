@@ -4,7 +4,7 @@
  * Problema Detectado:
  * OrcaWeb não está validando telefone dos clientes.
  * Ambiente: 10.10.11.109
- * BANCO DE DADOS: Fermacom_Diego
+ * BANCO DE DADOS: Wermar_Diego
  * Versão: Branch 475854_Jeremias_ValidarTelefoneCliente_Clube_da_Casa_Silca
 
  * OBJETIVOS DO TESTES:

@@ -1,4 +1,4 @@
-import { defineConfig  } from '@playwright/test';
+import { defineConfig } from '@playwright/test';
 
 export default defineConfig({
   testDir: './tests',
@@ -18,6 +18,7 @@ export default defineConfig({
     headless: false,
 
     trace: 'on-first-retry',
+    slowMo: 1000,             // 1 s entre each action
   },
 
 projects: [
